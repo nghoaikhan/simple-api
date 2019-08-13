@@ -1,12 +1,12 @@
 package fieldnames
 
 type users struct {
-	collection string
+	Collection string
 	UserId     string
 	LastAccess string
 }
-type Account struct {
-	collection    string
+type account struct {
+	Collection    string
 	ID            string
 	Name          string
 	Status        string
@@ -20,22 +20,27 @@ type Account struct {
 	Users         users
 }
 
-func GetAccount() (Account Account) {
+var Account account
 
-	Account.collection = "accounts"
-	Account.ID = "_id"
-	Account.AddOnFeatures = "addOnFeatures"
-	Account.Created = "created"
-	Account.CreatedBy = "createdBy"
-	Account.Features = "features"
-	Account.Modified = "modified"
-	Account.ModifiedBy = "modifiedBy"
-	Account.Name = "name"
-	Account.Status = "status"
-	Account.Timezone = "timezone"
-	Account.Users.collection = "users"
-	Account.Users.UserId = "userId"
-	Account.Users.LastAccess = "lastAccess"
-	return Account
+func init() {
+	Account = getAccount()
+}
+func getAccount() (account account) {
+
+	account.Collection = "accounts"
+	account.ID = "_id"
+	account.AddOnFeatures = "addOnFeatures"
+	account.Created = "created"
+	account.CreatedBy = "createdBy"
+	account.Features = "features"
+	account.Modified = "modified"
+	account.ModifiedBy = "modifiedBy"
+	account.Name = "name"
+	account.Status = "status"
+	account.Timezone = "timezone"
+	account.Users.Collection = "users"
+	account.Users.UserId = "userId"
+	account.Users.LastAccess = "lastAccess"
+	return account
 
 }

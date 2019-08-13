@@ -1,13 +1,13 @@
 package fieldnames
 
 type accounts struct {
-	collection string
+	Collection string
 	AccountID  string
 	Role       string
 	Status     string
 }
-type User struct {
-	collection string
+type user struct {
+	Collection string
 	ID         string
 	Email      string
 	Password   string
@@ -25,24 +25,29 @@ type User struct {
 	ModifiedBy string
 }
 
-func GetUser() (User User) {
-	User.collection = "users"
-	User.ID = "_id"
-	User.Email = "email"
-	User.Password = "password"
-	User.FirstName = "firstName"
-	User.LastName = "lastName"
-	User.FullName = "fullName"
-	User.Phone = "phone"
-	User.Status = "status"
-	User.State = "state"
-	User.LastLogin = "lastLogin"
-	User.Accounts.Status = "accounts.status"
-	User.Accounts.AccountID = "accounts.accountID"
-	User.Accounts.Role = "accounts.role"
-	User.Created = "created"
-	User.CreatedBy = "createdBy"
-	User.Modified = "modified"
-	User.ModifiedBy = "modifiedBy"
-	return User
+var User user
+
+func init() {
+	User = getUser()
+}
+func getUser() (user user) {
+	user.Collection = "users"
+	user.ID = "_id"
+	user.Email = "email"
+	user.Password = "password"
+	user.FirstName = "firstName"
+	user.LastName = "lastName"
+	user.FullName = "fullName"
+	user.Phone = "phone"
+	user.Status = "status"
+	user.State = "state"
+	user.LastLogin = "lastLogin"
+	user.Accounts.Status = "accounts.status"
+	user.Accounts.AccountID = "accounts.accountID"
+	user.Accounts.Role = "accounts.role"
+	user.Created = "created"
+	user.CreatedBy = "createdBy"
+	user.Modified = "modified"
+	user.ModifiedBy = "modifiedBy"
+	return user
 }

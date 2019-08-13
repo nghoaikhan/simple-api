@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	a := fieldnames.GetUser()
-	fmt.Println(a.ID)
+	fmt.Println(fieldnames.ACCOUNT.AddOnFeatures)
+	fmt.Println(fieldnames.USER.Password)
 }
