@@ -12,6 +12,12 @@ type role struct {
 	ModifiedBy string
 }
 
+var Role role
+
+func init() {
+	Role = GetRole()
+}
+
 func GetRole() (role role) {
 
 	role.Collection = "roles"
