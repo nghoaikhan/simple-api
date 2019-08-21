@@ -2,9 +2,11 @@ package repositories
 
 // IRepositoryBase is a
 type IRepositoryBase interface {
-	Get()
-	GetAll()
+	Find()
+	FindOne()
+	FindById()
 	Update()
+	UpdateById()
 	Delete()
 	Create()
 }

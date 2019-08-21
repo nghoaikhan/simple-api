@@ -23,23 +23,24 @@ func (re *RepositoryBase) Create(user interface{}) error {
 }
 
 // GetByID is a
-func (re *RepositoryBase) GetByID(_id bson.ObjectId) (result interface{}, err error) {
+func (re *RepositoryBase) FindById(_id bson.ObjectId) (result interface{}, err error) {
 	err = re.model.Find(bson.M{"_id": _id}).One(&result)
 	return
 }
 
 // GetAll is a
-func (re *RepositoryBase) GetAll() (result []interface{}) {
+func (re *RepositoryBase) Find() (result []interface{}) {
 	iter := re.model.Find(nil).Iter()
 	var doc interface{}
 	for iter.Next(&doc) {
 		result = append(result, doc)
 	}
-	return result
+	return
 }
 
 // Update is a
-func (re *RepositoryBase) Update(updateUser interface{}) (result interface{}) {
+func (re *RepositoryBase) UpdateById(selector interface{}, update interface{}) (result interface{}) {
+
 	return result
 }
 
