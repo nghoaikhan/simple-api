@@ -1,4 +1,4 @@
-package repositories
+package baserepo
 
 // IRepositoryBase is a
 type IRepositoryBase interface {

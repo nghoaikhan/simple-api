@@ -1,4 +1,4 @@
-package user
+package usersche
 
 import (
 	"log"
@@ -11,7 +11,9 @@ import (
 )
 
 var (
-	Schema  *mgo.Collection
+	// Schema
+	Schema *mgo.Collection
+
 	session *mgo.Session
 )
 
