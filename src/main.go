@@ -1,29 +1,17 @@
 package main
 
-import "fmt"
-
-type parents struct {
-	model string
-}
-
-func (p *parents) Init(m string) {
-	p.model = m
-}
-func (p *parents) Get() {
-	fmt.Println(p.model)
-}
-
-type child struct {
-	parents
-	model int
-}
-
-func (ch *child) Init(i int) {
-	ch.model = i
-}
+import (
+	"fmt"
+	"simple-api/src/app/core/utils"
+	"simple-api/src/app/core/utils/mongo"
+	"simple-api/src/ioc"
+)
 
 func main() {
-	ch := new(child)
-	ch.parents.Init("Ljan")
-	ch.Get()
+	utils.InitConfig()
+	mongo.CreateDbSession()
+	userRepo := ioc.InitUserRepo()
+
+	fmt.Println(userRepo.Find())
+
 }

@@ -19,6 +19,7 @@ func GetSession() *mgo.Session {
 			Addrs:    []string{utils.AppConfig.MongoDBHost},
 			Username: utils.AppConfig.DBUser,
 			Password: utils.AppConfig.DBPwd,
+			Database: "apigo",
 			Timeout:  60 * time.Second,
 		})
 		if err != nil {
@@ -33,10 +34,12 @@ func CreateDbSession() {
 	var err error
 	session, err = mgo.DialWithInfo(&mgo.DialInfo{
 		Addrs:    []string{utils.AppConfig.MongoDBHost},
+		Database: "apigo",
 		Username: utils.AppConfig.DBUser,
 		Password: utils.AppConfig.DBPwd,
 		Timeout:  60 * time.Second,
 	})
+
 	if err != nil {
 		log.Fatalf("[createDbSession]: %s\n", err)
 	}

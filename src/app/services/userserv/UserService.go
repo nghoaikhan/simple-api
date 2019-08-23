@@ -1,7 +1,9 @@
 package userserv
 
+
 // Service is a
 type Service struct {
+	
 }
 
 // CreateUser is a

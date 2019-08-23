@@ -1,6 +1,6 @@
 {
-    "MongoDBHost":"ds041144.mlab.com:41144",
-    "DBUser":"apigo",
-    "DBPwd": "12345678x@X",
+    "MongoDBHost":"localhost:27017",
+    "DBUser":"",
+    "DBPwd": "",
     "DBName":"apigo"
 }

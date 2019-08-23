@@ -1,6 +1,7 @@
 package usersche
 
 import (
+	"fmt"
 	"log"
 	"simple-api/src/app/core/utils"
 	mongoUtils "simple-api/src/app/core/utils/mongo"
@@ -18,6 +19,7 @@ var (
 )
 
 func init() {
+	fmt.Println("sche")
 	session = mongoUtils.GetSession().Copy()
 	Schema = session.DB(utils.AppConfig.DBName).C(fieldnames.User.Collection)
 }

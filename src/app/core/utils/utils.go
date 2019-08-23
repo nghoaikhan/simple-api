@@ -19,7 +19,7 @@ func InitConfig() {
 }
 
 func loadAppConfig() {
-	file, err := os.Open("../../../appConfig.json")
+	file, err := os.Open("src/appConfig.json")
 	defer file.Close()
 	if err != nil {
 		log.Fatalf("[loadConfig]: %s\n", err)
