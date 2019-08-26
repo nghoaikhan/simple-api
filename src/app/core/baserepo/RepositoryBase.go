@@ -21,30 +21,26 @@ func (re *RepositoryBase) Create(user createDto) (err error) {
 }
 
 // FindByID is a
-func (re *RepositoryBase) FindByID(_id bson.ObjectId) (result interface{}, err error) {
-	err = re.Schema.Find(bson.M{"_id": _id}).One(&result)
+func (re *RepositoryBase) FindByID(_id string) (result interface{}, err error) {
+	err = re.Schema.FindId(bson.ObjectIdHex(_id)).One(&result)
 	return
 }
 
 // Find is a
-func (re *RepositoryBase) Find() (result []interface{}) {
-	iter := re.Schema.Find(nil).Iter()
-	var doc interface{}
-	for iter.Next(&doc) {
-		result = append(result, doc)
-	}
+func (re *RepositoryBase) Find() (result []interface{}, err error) {
+	err = re.Schema.Find(nil).All(&result)
 	return
 }
 
 // UpdateByID is a
-func (re *RepositoryBase) UpdateByID(selector interface{}, update updateDto) (result interface{}) {
-
-	return result
+func (re *RepositoryBase) UpdateByID(_id string, update updateDto) (err error) {
+	err = re.Schema.UpdateId(bson.ObjectIdHex(_id), update)
+	return
 }
 
 // Delete is a
-func (re *RepositoryBase) Delete(_id bson.ObjectId) (err error) {
-	err = re.Schema.Remove(bson.M{"_id": _id})
+func (re *RepositoryBase) Delete(_id string) (err error) {
+	err = re.Schema.Remove(bson.M{"_id": bson.ObjectIdHex(_id)})
 	return
 
 }

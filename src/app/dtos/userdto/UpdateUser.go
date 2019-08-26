@@ -1,9 +1,9 @@
 package userdto
 
 type UpdateDto struct {
-	Username string
-	Password string
-	FullName string
-	Role     string
-	Account  []string
+	Username string   `json:"username,omitempty"`
+	Password string   `json:"password,omitempty"`
+	FullName string   `json:"fullname,omitemptty"`
+	Role     string   `json:"role,omitempty"`
+	Account  []string `json:"account,omitempty"`
 }

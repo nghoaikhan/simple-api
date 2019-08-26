@@ -19,21 +19,28 @@ func NewUserContrl(userServ *userserv.Service) *Controller {
 func (contrl *Controller) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var dto userdto.CreateDto
 	var user usermod.Model
+
+	// decode body request
 	err := utils.DecodeJson(r.Body, &dto)
 	if err != nil {
 		//handle
 		return
 	}
+	// call service to create a user
 	user, err = contrl.userServ.CreateUser(dto)
 	if err != nil {
 		//handle
 		return
 	}
+
+	// endcode to json to send respone to client
 	json, err := utils.EndcodeJson(&user)
 	if err != nil {
 		//handle
 		return
 	}
+
+	// send result to client
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	w.Write(json)

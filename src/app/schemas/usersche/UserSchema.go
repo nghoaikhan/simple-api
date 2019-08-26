@@ -30,7 +30,7 @@ func CloseSession() {
 func AddIndexes() {
 	var err error
 	userIndex := mgo.Index{
-		Key:        []string{"_id"},
+		Key:        []string{"username"},
 		Unique:     true,
 		Background: true,
 		Sparse:     true,

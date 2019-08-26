@@ -10,9 +10,12 @@ import (
 
 // Model is a
 type Model struct {
-	ID        bson.ObjectId `bson:"_id, omitempty"`
+	ID        bson.ObjectId `bson:"_id"`
 	Username  string        `json:"username"`
 	Password  string        `json:"password"`
+	Accounts  []string      `json:"accounts"`
+	Role      string        `json:"role"`
+	FullName  string        `json:"fullname,omitempty"`
 	CreatedOn time.Time     `json:"createdOn"`
 }
 
