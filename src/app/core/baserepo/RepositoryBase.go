@@ -10,13 +10,14 @@ type updateDto interface{}
 
 // RepositoryBase is a
 type RepositoryBase struct {
-	Schema *mgo.Collection
+	Schema  *mgo.Collection
+	Session *mgo.Session
 }
 
 // Create is a
-func (re *RepositoryBase) Create(user createDto) error {
-	err := re.Schema.Insert(user)
-	return err
+func (re *RepositoryBase) Create(user createDto) (err error) {
+	err = re.Schema.Insert(user)
+	return
 }
 
 // FindByID is a

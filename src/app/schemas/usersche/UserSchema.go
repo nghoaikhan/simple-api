@@ -1,7 +1,6 @@
 package usersche
 
 import (
-	"fmt"
 	"log"
 	"simple-api/src/app/core/utils"
 	mongoUtils "simple-api/src/app/core/utils/mongo"
@@ -15,17 +14,16 @@ var (
 	// Schema
 	Schema *mgo.Collection
 
-	session *mgo.Session
+	Session *mgo.Session
 )
 
 func init() {
-	fmt.Println("sche")
-	session = mongoUtils.GetSession().Copy()
-	Schema = session.DB(utils.AppConfig.DBName).C(fieldnames.User.Collection)
+	Session = mongoUtils.GetSession().Copy()
+	Schema = Session.DB(utils.AppConfig.DBName).C(fieldnames.User.Collection)
 }
 
 func CloseSession() {
-	session.Close()
+	Session.Close()
 }
 
 // AddIndexes make sure the ID of each document is unique

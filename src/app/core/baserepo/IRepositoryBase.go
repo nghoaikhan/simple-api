@@ -8,5 +8,5 @@ type IRepositoryBase interface {
 	Update()
 	UpdateById()
 	Delete()
-	Create()
+	Create(dto interface{})
 }

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"io"
 	"log"
 	"os"
 )
@@ -30,4 +31,14 @@ func loadAppConfig() {
 	if err != nil {
 		log.Fatalf("[loadConfig]: %s\n", err)
 	}
+}
+
+func DecodeJson(in io.Reader, out interface{}) (err error) {
+	err = json.NewDecoder(in).Decode(out)
+	return
+}
+
+func EndcodeJson(in interface{}) (result []byte, err error) {
+	result, err = json.Marshal(in)
+	return
 }

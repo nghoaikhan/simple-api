@@ -9,5 +9,11 @@ import (
 //Repository is
 type Repository struct {
 	baserepo.RepositoryBase
-	Schema *mgo.Collection
+}
+
+func NewRepo(schema *mgo.Collection, session *mgo.Session) *Repository {
+	var r Repository
+	r.Schema = schema
+	r.Session = session
+	return &r
 }
