@@ -116,7 +116,7 @@ func (contrl *Controller) UpdateUserByID(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// call service to get a user by Id
+	// call service to update a user by Id
 	user, err := contrl.userServ.UpdateUserByID(id, dto)
 	if err != nil {
 		//handle
@@ -143,7 +143,7 @@ func (contrl *Controller) DeleteByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	// call service to get a user by Id
+	// call service to delete a user by Id
 	err := contrl.userServ.DeleteUserByID(id)
 	if err != nil {
 		//handle
