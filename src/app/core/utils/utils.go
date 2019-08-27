@@ -5,6 +5,8 @@ import (
 	"io"
 	"log"
 	"os"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type configuration struct {
@@ -40,5 +42,15 @@ func DecodeJson(in io.Reader, out interface{}) (err error) {
 
 func EndcodeJson(in interface{}) (result []byte, err error) {
 	result, err = json.Marshal(in)
+	return
+}
+
+func MapFromInter(in interface{}, out *interface{}) (err error) {
+	var bt []byte
+	bt, err = bson.Marshal(in)
+	if err != nil {
+		return
+	}
+	err = bson.Unmarshal(bt, out)
 	return
 }

@@ -1,12 +1,9 @@
 package userserv
 
 import (
-	"reflect"
 	"simple-api/src/app/dtos/userdto"
 	"simple-api/src/app/models/usermod"
 	"simple-api/src/app/repositories/userrepo"
-
-	"gopkg.in/mgo.v2/bson"
 )
 
 // Service is a
@@ -19,7 +16,7 @@ func NewUserServ(userRepo *userrepo.Repository) *Service {
 }
 
 func (serv *Service) CreateUser(createdDto userdto.CreateDto) (user usermod.Model, err error) {
-	defer serv.userRepo.Session.Close()
+
 	userModel := usermod.Model{}
 	userModel.InitFromCreateDto(createdDto)
 
@@ -30,25 +27,37 @@ func (serv *Service) CreateUser(createdDto userdto.CreateDto) (user usermod.Mode
 	return
 }
 func (serv *Service) GetUsers() (users []usermod.Model, err error) {
-	defer serv.userRepo.Session.Close()
-	users, err := serv.userRepo.Find()
+
+	result, err := serv.userRepo.Find()
+	users = usermod.Model{}.ConvertFromArrInter(result)
+
 	return
 }
-func CreateArray(t reflect.Type, length int) reflect.Value {
-	var arrayType reflect.Type
-	arrayType = reflect.ArrayOf(length, t)
-	return reflect.Zero(arrayType)
-}
+
 func (serv *Service) GetUserByID(id string) (user usermod.Model, err error) {
-	defer serv.userRepo.Session.Close()
-	user, err = serv.userRepo.FindByID(id)
+
+	result, err := serv.userRepo.FindByID(id)
+	user.InitFromInter(result)
 	return
 
 }
-func (serv *Service) UpdateUserByID(id string, dto userdto.UpdateDto) (users []usermod.Model, err error) {
-
+func (serv *Service) UpdateUserByID(id string, dto userdto.UpdateDto) (user usermod.Model, err error) {
+	bsonUpdate, err := dto.ToBsonMap()
+	if err != nil {
+		return
+	}
+	err = serv.userRepo.UpdateByID(id, bsonUpdate)
+	if err != nil {
+		return
+	}
+	user, err = serv.GetUserByID(id)
 	return
 }
-func (serv *Service) DeleteUserByID(ID bson.ObjectId) (err error) {
+func (serv *Service) DeleteUserByID(id string) (err error) {
+	err = serv.userRepo.DeleteByID(id)
 	return
+}
+
+func (serv *Service) CloseDBSession() {
+	serv.userRepo.Session.Close()
 }

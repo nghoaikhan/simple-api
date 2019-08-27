@@ -12,14 +12,19 @@ type user struct {
 }
 
 func main() {
-	newProj := &user{
+	newProj := user{
 		NamePro: "foo",
 		Email:   "khan",
 	}
-	ms, _ := bson.Marshal(newProj)
-	var bm bson.M
-	_ = bson.Unmarshal(ms, &bm)
-	bm2 := bson.M{"Name": "foo", "Email": "khan"}
+	arr := []user{newProj}
+	var bm []bson.M
+	var tmpBson bson.M
+	for _, v := range arr {
+		ms, _ := bson.Marshal(&v)
+		_ = bson.Unmarshal(ms, &tmpBson)
+		bm = append(bm, tmpBson)
+	}
+
 	fmt.Println(bm)
-	fmt.Println(bm2)
+
 }
