@@ -31,8 +31,7 @@ func (serv *Service) CreateUser(createdDto userdto.CreateDto) (user usermod.Mode
 }
 func (serv *Service) GetUsers() (users []usermod.Model, err error) {
 	defer serv.userRepo.Session.Close()
-
-	result, err := serv.userRepo.Find()
+	users, err := serv.userRepo.Find()
 	return
 }
 func CreateArray(t reflect.Type, length int) reflect.Value {
@@ -40,13 +39,13 @@ func CreateArray(t reflect.Type, length int) reflect.Value {
 	arrayType = reflect.ArrayOf(length, t)
 	return reflect.Zero(arrayType)
 }
-func (serv *Service) GetUserByID(ID bson.ObjectId) (user usermod.Model, err error) {
+func (serv *Service) GetUserByID(id string) (user usermod.Model, err error) {
 	defer serv.userRepo.Session.Close()
-
+	user, err = serv.userRepo.FindByID(id)
 	return
 
 }
-func (serv *Service) UpdateUser(dto userdto.UpdateDto) (users []usermod.Model, err error) {
+func (serv *Service) UpdateUserByID(id string, dto userdto.UpdateDto) (users []usermod.Model, err error) {
 
 	return
 }

@@ -1,6 +1,8 @@
 package baserepo
 
 import (
+	"reflect"
+
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -10,8 +12,9 @@ type updateDto interface{}
 
 // RepositoryBase is a
 type RepositoryBase struct {
-	Schema  *mgo.Collection
-	Session *mgo.Session
+	Schema    *mgo.Collection
+	Session   *mgo.Session
+	ModelType reflect.Type
 }
 
 // Create is a
@@ -22,12 +25,14 @@ func (re *RepositoryBase) Create(user createDto) (err error) {
 
 // FindByID is a
 func (re *RepositoryBase) FindByID(_id string) (result interface{}, err error) {
-	err = re.Schema.FindId(bson.ObjectIdHex(_id)).One(&result)
+	tmp := reflect.New(re.ModelType).Interface()
+	err = re.Schema.FindId(bson.ObjectIdHex(_id)).One(&tmp)
+	result = tmp
 	return
 }
 
 // Find is a
-func (re *RepositoryBase) Find() (result []interface{}, err error) {
+func (re *RepositoryBase) Find() (result interface{}, err error) {
 	err = re.Schema.Find(nil).All(&result)
 	return
 }

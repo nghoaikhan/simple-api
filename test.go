@@ -3,17 +3,23 @@ package main
 import (
 	"fmt"
 
-	"github.com/fatih/structs"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type user struct {
-	name  string
-	email string
+	NamePro string
+	Email   string
 }
 
 func main() {
-	var a interface{}
-	a = &user{"Khan", "@"}
-	fmt.Println(structs.Names(&user{}))
-
+	newProj := &user{
+		NamePro: "foo",
+		Email:   "khan",
+	}
+	ms, _ := bson.Marshal(newProj)
+	var bm bson.M
+	_ = bson.Unmarshal(ms, &bm)
+	bm2 := bson.M{"Name": "foo", "Email": "khan"}
+	fmt.Println(bm)
+	fmt.Println(bm2)
 }

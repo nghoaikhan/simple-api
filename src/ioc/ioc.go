@@ -1,7 +1,9 @@
 package ioc
 
 import (
+	"reflect"
 	"simple-api/src/app/controllers/usercontrl"
+	"simple-api/src/app/models/usermod"
 	"simple-api/src/app/repositories/userrepo"
 	"simple-api/src/app/schemas/usersche"
 	"simple-api/src/app/services/userserv"
@@ -11,7 +13,7 @@ import (
 
 //InitUserRepo this function is used to create a user repository instant
 func InitUserRepo() *userrepo.Repository {
-	return userrepo.NewRepo(usersche.Schema, usersche.Session)
+	return userrepo.NewRepo(usersche.Schema, usersche.Session, reflect.TypeOf(usermod.Model{}))
 }
 
 //End point of Repositories
